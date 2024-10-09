@@ -14,22 +14,22 @@ for filename in os.listdir(chunks_dir):
         print(f"Cargando {filename} en Chroma...")
         with open(os.path.join(chunks_dir, filename), mode='r', encoding='utf-8') as file:
             reader = csv.reader(file)
-            next(reader)  # Saltar el encabezado del CSV
+            next(reader)  
 
             start_time = time.time()
 
             for idx, row in enumerate(reader):
                 sentence = row[0]
-                # Usar un ID único basado en el nombre del archivo y el índice
+                
                 collection.add(
-                    ids=[f"{filename}_sentence_{idx}"],  # Asegúrate de que los IDs son únicos
+                    ids=[f"{filename}_sentence_{idx}"], 
                     documents=[sentence]
                 )
             
             end_time = time.time()
             insertion_times.append(end_time - start_time)
 
-# Después de la carga en ChromaDB
+
 documents = collection.get()["documents"]
 print(f"Total de documentos almacenados: {len(documents)}")
 
